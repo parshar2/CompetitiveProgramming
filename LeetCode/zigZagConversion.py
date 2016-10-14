@@ -11,19 +11,20 @@ class Solution(object):
 	def convert(self, s, numRows):
 		conv_string = [[] for _ in range(numRows)]
 		curr_row = 0 #row data needs to be added to
-		goingDown = True
-		for c in s:
-			conv_string[curr_row].append(c)
-			if goingDown and curr_row == (numRows - 1):
-				curr_row = curr_row - 1
-				goingDown = False
-			elif goingDown == False and curr_row == 1:
-				curr_row = 0
-				goingDown = True
-			elif goingDown == False and curr_row == 0:
-				curr_row = max(curr_row+1, numRows-1)
-				goingDown = True
-			else :
-				curr_row = curr_row + 1 if goingDown else curr_row + 1
-		for index in range(numRows):
-			print ''.join(conv_string),
+		charIndex = 0
+		while charIndex < len(s):
+			for i in range(0, numRows):
+				if charIndex >= len(s):
+					break
+				conv_string[i].append(s[charIndex])
+				charIndex += 1
+			for i in range (numRows - 2, 0, -1):
+				if charIndex >= len(s):
+					break
+				conv_string[i].append(s[charIndex])
+				charIndex += 1
+		retString = ''
+		for string in conv_string:
+			retString += ''.join(string)
+		return retString
+
